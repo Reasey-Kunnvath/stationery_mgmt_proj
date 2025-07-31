@@ -1,5 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
-def test_page (request):
-    return render(request, 'test_page.html')
+def dashboard_home(request):
+    return render(request, 'index.html')
+
+def category(request):
+    return render(request, 'category.html')
+
+def user(request):
+    return render(request, 'user.html')
