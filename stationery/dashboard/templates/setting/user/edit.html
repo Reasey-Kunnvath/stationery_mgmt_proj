@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Supplier{% endblock %}
+
+{% block header %}Edit Supplier{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 offset-md-1">
+
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title">Edit Supplier Form</h3>
+
+		</div>
+		<!-- /.card-header -->
+		<!-- form start -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+		<form action="{% url 'user_update' user.user_id %}" method="POST">
+			{% csrf_token %}
+			<div class="card-body">
+				<div class="row">
+					<div class="form-group col-md-6">
+					<label for="ADUser">AD Username</label>
+					<input type="text" name="ad_username" value="{{ user.username }}" class="form-control" id="ADUser"
+						placeholder="Enter AD Name" required />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="UserEmail">Email</label>
+					<input type="text" name="user_email" value="{{ user.email }}" class="form-control" id="UserEmail"
+						placeholder="Email for the user" required />
+				</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+					<label for="Userpassword">Password</label>
+					<input type="password" name="user_pwd" value="{{ user.password }}" class="form-control" id="Userpassword"
+						placeholder="Enter Password for AD User" required />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="UserRole">Sys Role</label>
+					<select class="form-control form-select form-select-lg mb-3" name="user_role" id="UserRole" >
+						<option value="1" {% if user.role == 1 %}selected{% endif %}>Admin</option>
+						<option value="2" {% if user.role == 2 %}selected{% endif %}>User</option>
+					</select>
+				</div>
+				</div>
+				
+			</div>
+			<div class="card-footer">
+				<button type="submit" class="btn btn-warning float-right">Update</button>
+				<a href="{% url 'supplier' %}" class="btn btn-success float-left">Back</a>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

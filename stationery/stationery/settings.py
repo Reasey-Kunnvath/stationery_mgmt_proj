@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'login',
     'dashboard',
     'sweetify',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,7 @@ ROOT_URLCONF = 'stationery.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'dashboard/templates'],
+        'DIRS': [BASE_DIR / 'dashboard/templates', BASE_DIR / 'user/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
