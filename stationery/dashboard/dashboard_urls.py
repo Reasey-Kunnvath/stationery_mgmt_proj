@@ -1,7 +1,7 @@
 
 from django.urls import path
 from . import views
-from dashboard.viewss import item_views,user_views
+from dashboard.viewss import item_views, user_views
 
 urlpatterns = [
     path('', views.dashboard_home, name='dashboard_home'),
@@ -32,6 +32,14 @@ urlpatterns = [
     
     # User Routes
     path('users', user_views.user, name='user'),
+    path('users/create/', user_views.userCreate, name='user_create'),
+    path('users/store/', user_views.userStore, name='user_store'),
+    path('users/edit/<int:id>/', user_views.userEdit, name='user_edit'),
+    path('users/update/<int:id>/', user_views.userUpdate, name='user_update'),
+    path('users/delete/<int:id>/', user_views.userDelete, name='user_delete'),
+    
+    # Logout Routes
+    path('logout', user_views.logout, name='logout'),
 
 
 ]
