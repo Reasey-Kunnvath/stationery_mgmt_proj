@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Supplier{% endblock %}
+
+{% block header %}Supplier Page{% endblock %}
+
+{% block content %}
+  <div class="col-md-12 offset-md-0">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title mt-2">Supplier Table</h3>
+          <a
+            href="{% url 'category_create' %}"
+            class="btn btn-primary float-right"
+            >Create</a
+          >
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 120px">Category ID</th>
+                <th>Category Name</th>
+                <th >Category Description</th>
+                <th >Created At</th>
+                <th >Updated At</th>
+                <th class="w-auto text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for category in categories %}
+              <tr>
+                <td>{{ category.cate_id }}</td>
+                <td>{{ category.cate_name }}</td>
+                <td>{{ category.cate_desc }}</td>
+                <td>{{ category.created_at }}</td>
+                <td>{{ category.updated_at }}</td>
+                <td class="p-2 text-center">
+                  <a
+                    href="{% url 'category_edit' category.cate_id %}"
+                    class="btn btn-warning "
+                    >Edit</a
+                  >
+                  <a
+                    onclick="delete_item('{{ position.id }}')"
+                    class="btn btn-danger "
+                  >
+                    Delete
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+{% endblock %}
