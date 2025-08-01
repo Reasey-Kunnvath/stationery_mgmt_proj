@@ -10,7 +10,7 @@
         <div class="card-header">
           <h3 class="card-title mt-2">Supplier Table</h3>
           <a
-            href="{% url 'category_create' %}"
+            href="{% url 'supplier_create' %}"
             class="btn btn-primary float-right"
             >Create</a
           >
@@ -20,30 +20,36 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th style="width: 120px">Category ID</th>
-                <th>Category Name</th>
-                <th >Category Description</th>
-                <th >Created At</th>
-                <th >Updated At</th>
+                <th style="width: 120px">Supplier ID</th>
+                <th>Supplier Name</th>
+                <th>Supplier Contact</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Created At</th>
+                <th>Updated At</th>
                 <th class="w-auto text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              {% for category in categories %}
+              {% for supplier in suppliers %}
               <tr>
-                <td>{{ category.cate_id }}</td>
-                <td>{{ category.cate_name }}</td>
-                <td>{{ category.cate_desc }}</td>
-                <td>{{ category.created_at }}</td>
-                <td>{{ category.updated_at }}</td>
+                <td>{{ supplier.splr_id }}</td>
+                <td>{{ supplier.splr_name }}</td>
+                <td>{{ supplier.splr_contact_person }}</td>
+                <td>{{ supplier.splr_email }}</td>
+                <td>{{ supplier.splr_phone }}</td>
+                <td>{{ supplier.splr_address }}</td>
+                <td>{{ supplier.created_at }}</td>
+                <td>{{ supplier.updated_at }}</td>
                 <td class="p-2 text-center">
                   <a
-                    href="{% url 'category_edit' category.cate_id %}"
+                    href="{% url 'supplier_edit' supplier.splr_id %}"
                     class="btn btn-warning "
                     >Edit</a
                   >
                   <a
-                    onclick="delete_item('{{ position.id }}')"
+                    onclick="delete_supplier('{{ supplier.splr_id }}')"
                     class="btn btn-danger "
                   >
                     Delete
@@ -66,4 +72,21 @@
         </div>
       </div>
     </div>
+    <script>
+  function delete_supplier(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Delete this Supplier",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "supplier/delete/" + id + "/";
+      }
+    });
+  }
+</script>
 {% endblock %}

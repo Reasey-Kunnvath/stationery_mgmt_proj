@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Items{% endblock %}
+
+{% block header %}Create Item{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 offset-md-1">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Create Item Form</h3>
+
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="{% url 'item_store' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="ItemName">Item Name</label>
+                        <input type="text" name="item_name" value="" class="form-control" id="ItemName"
+                            placeholder="Item Name" required />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="SupplierContact">Item Description</label>
+                        <input type="text" name="item_desc" value="" class="form-control" id="SupplierContact"
+                            placeholder="Item Description" required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="ItemCategory">Category</label>
+                        <select name="cate_id" class="form-control" >
+                            <option value="">Select Category</option>
+                            {% for category in categories %}
+                            <option value="{{ category.cate_id }}">{{ category.cate_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="ItemImage">Image</label>
+                        <div class="custom-file">
+                            <input type="file" name="item_img" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{% url 'item' %}" class="btn btn-success float-right">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Supplier{% endblock %}
+
+{% block header %}Create Supplier{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 offset-md-1">
+
+	<div class="card card-primary">
+		<div class="card-header">
+			<h3 class="card-title">Create Supplier Form</h3>
+
+		</div>
+		<!-- /.card-header -->
+		<!-- form start -->
+		<form action="{% url 'supplier_store' %}" method="POST">
+			{% csrf_token %}
+			<div class="card-body">
+				<div class="row">
+					<div class="form-group col-md-6">
+					<label for="SupplierName">Supplier Name</label>
+					<input type="text" name="supplier_name" value="" class="form-control" id="SupplierName"
+						placeholder="Supplier Name" required />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="SupplierContact">Supplier Contact</label>
+					<input type="text" name="supplier_contact" value="" class="form-control" id="SupplierContact"
+						placeholder="Supplier Contact" required />
+				</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6">
+					<label for="SupplierEmail">Supplier Email</label>
+					<input type="email" name="supplier_email" value="" class="form-control" id="SupplierEmail"
+						placeholder="Supplier Email" required />
+				</div>
+				<div class="form-group col-md-6">
+					<label for="SupplierPhone">Supplier Phone</label>
+					<input type="text" name="supplier_phone" value="" class="form-control" id="SupplierPhone"
+						placeholder="Supplier Phone" required />
+				</div>
+				</div>
+				<div class="form-group">
+					<label for="SupplierAddress">Supplier Address</label>
+					<textarea class="form-control" rows="3" name="supplier_address" placeholder="Enter ..."
+						style="height: 69px;" required></textarea>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<a href="{% url 'supplier' %}" class="btn btn-success float-right">Back</a>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
