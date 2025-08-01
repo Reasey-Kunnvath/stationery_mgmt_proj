@@ -15,7 +15,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="{% url 'item_store' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'item_update' items.item_id %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card-body">
                 <div class="row">
@@ -51,7 +51,7 @@
                  <div class="form-group col-md-4 offset-8 "> 
               <div style="display: flex; justify-content: center; margin-top: 20px;">
                  <img class="profile-user-img img-fluid img-circle shadow-lg rounded " 
-                 src="{% if item.item_img %}/media/{{ item.item_img }}{% else %}{% static 'dist/img/no-img.jpeg' %}{% endif %}" style="width: 150px; height: 150px;" alt="">
+                 src="{% if items.item_img %}/media/{{items.item_img }}{% else %}{% static 'dist/img/no-img.jpeg' %}{% endif %}" style="width: 150px; height: 150px;" alt="">
               </div>
               </div>
             </div>
