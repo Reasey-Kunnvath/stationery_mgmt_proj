@@ -1,26 +1,26 @@
 
 from django.urls import path
 from . import views
-from dashboard.viewss import item_views,user_views
+from dashboard.viewss import item_views,user_views,supplier_views,category_views
 
 urlpatterns = [
     path('', views.dashboard_home, name='dashboard_home'),
     
     #Category Routes
-    path('category', views.category, name='category'),
-    path('category/create/', views.categoryCreate, name='category_create'),
-    path('category/store/', views.categoryStore, name='category_store'),
-    path('category/edit/<int:id>/', views.categoryEdit, name='category_edit'),
-    path('category/update/<int:id>/', views.categoryUpdate, name='category_update'),
-    path('category/delete/<int:id>/', views.categoryDelete, name='category_delete'),
+    path('category', category_views.category, name='category'),
+    path('category/create/', category_views.categoryCreate, name='category_create'),
+    path('category/store/', category_views.categoryStore, name='category_store'),
+    path('category/edit/<int:id>/', category_views.categoryEdit, name='category_edit'),
+    path('category/update/<int:id>/', category_views.categoryUpdate, name='category_update'),
+    path('category/delete/<int:id>/', category_views.categoryDelete, name='category_delete'),
     
     # Supplier Routes
-    path('supplier', views.supplier, name='supplier'),
-    path('supplier/create/', views.supplierCreate, name='supplier_create'),
-    path('supplier/store/', views.supplierStore, name='supplier_store'),
-    path('supplier/edit/<int:id>/', views.supplierEdit, name='supplier_edit'),
-    path('supplier/update/<int:id>/', views.supplierUpdate, name='supplier_update'),
-    path('supplier/delete/<int:id>/', views.supplierDelete, name='supplier_delete'),
+    path('supplier', supplier_views.supplier, name='supplier'),
+    path('supplier/create/', supplier_views.supplierCreate, name='supplier_create'),
+    path('supplier/store/', supplier_views.supplierStore, name='supplier_store'),
+    path('supplier/edit/<int:id>/', supplier_views.supplierEdit, name='supplier_edit'),
+    path('supplier/update/<int:id>/', supplier_views.supplierUpdate, name='supplier_update'),
+    path('supplier/delete/<int:id>/', supplier_views.supplierDelete, name='supplier_delete'),
 
     #Item Routes
     path('item', item_views.item, name='item'),
