@@ -34,8 +34,8 @@
                 <td>{{ category.cate_id }}</td>
                 <td>{{ category.cate_name }}</td>
                 <td>{{ category.cate_desc }}</td>
-                <td>{{ category.created_at }}</td>
-                <td>{{ category.updated_at }}</td>
+                <td>{{ category.created_at|date:'d-M-Y' }}</td>
+                <td>{{ category.updated_at|date:'d-M-Y' }}</td>
                 <td class="p-2 text-center">
                   <a
                     href="{% url 'category_edit' category.cate_id %}"

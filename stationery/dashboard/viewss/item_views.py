@@ -1,5 +1,6 @@
 from django.shortcuts import render ,redirect
 from ..models import *
+import datetime
 import sweetify # type: ignore
 
 def item(request):
@@ -37,6 +38,7 @@ def itemUpdate(request, id):
                 item.item_img.delete()          
             item.item_img = request.FILES['item_img']
         item.cate_id_id = request.POST.get('cate_id')
+        item.updated_at = datetime.datetime.now()
         item.save()
         sweetify.success(request, 'Item Updated Successfully') # type: ignore
         return redirect(to='item')
