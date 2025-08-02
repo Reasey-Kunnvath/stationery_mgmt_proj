@@ -17,7 +17,10 @@ class Command(BaseCommand):
         user = Users(
             username='ad.admin',
             email='admin@admin.com',
-            role_id_id=1 
+            role_id=1,
+            is_superuser=True,
+            is_staff=True,
+            is_active=True
         )
         user.set_password('12345678') 
         user.save()
@@ -26,7 +29,9 @@ class Command(BaseCommand):
         user = Users(
             username='ad.user',
             email='user@user.com',
-            role_id_id=2
+            role_id=2,
+            is_superuser=False,
+            is_active=True
         )
         user.set_password('12345678') 
         user.save()

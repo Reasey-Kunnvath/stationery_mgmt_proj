@@ -5,7 +5,9 @@ def auth_adm(username, password):
     try:
         user = models.Users.objects.get(username=username)
         if user.check_password(password):
-            if user.role_id_id == roles.admin:
+            # Check role or superuser status
+            admin_role = getattr(models.Roles, 'admin', None)
+            if user.role_id == admin_role or user.is_superuser:
                 return True, 'Login successful'
             else:
                 return False, 'Unauthorized access.'

@@ -24,16 +24,15 @@
       </div>
       <div class="form-container sign-in-container">
         <form action="{% url 'auth_adm_login' %}" method="post">
-          {% csrf_token %}
-          <h1>Admin Log In</h1>
-
-          <span class="mb-20 mt-10">Please use your AD User to Log In</span>
-          <input type="username" placeholder="AD User" name="username" />
-          <input type="password" placeholder="Password" name="password" />
-          <a href="#">Please contact Stationery Admin</a>
-          <button type="submit">Log In</button>
+            {% csrf_token %}
+            <h1>Admin Log In</h1>
+            <span class="mb-20 mt-10">Please use your AD User to Log In</span>
+            <input type="text" placeholder="AD User" name="username" required /><br>
+            <input type="password" placeholder="Password" name="password" required /><br>
+            <a href="#">Please contact Stationery Admin</a><br>
+            <button type="submit">Log In</button>
         </form>
-      </div>
+        </div>
       <div class="overlay-container">
         <div class="overlay">
           {% comment %}
