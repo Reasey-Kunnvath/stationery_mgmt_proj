@@ -40,8 +40,8 @@
                 <td>{{ supplier.splr_email }}</td>
                 <td>{{ supplier.splr_phone }}</td>
                 <td>{{ supplier.splr_address }}</td>
-                <td>{{ supplier.created_at }}</td>
-                <td>{{ supplier.updated_at }}</td>
+                <td>{{ supplier.created_at|date:'d-M-Y' }}</td>
+                <td>{{ supplier.updated_at|date:'d-M-Y' }}</td>
                 <td class="p-2 text-center">
                   <a
                     href="{% url 'supplier_edit' supplier.splr_id %}"

@@ -36,7 +36,7 @@
                 <td>{{ item.item_id }}</td>
                 <td>{{ item.item_name }}</td>
                 <td>{{ item.item_desc }}</td>
-                <td>{{ item.cate_id }}</td>
+                <td>{{ item.cate_id.cate_name }}</td>
                 <td>
                   {% if item.item_img %}
                       <img src="/media/{{item.item_img }}" style="width: 50px; height: 50px;" alt="">
@@ -44,8 +44,8 @@
                       <img src="{% static 'dist/img/no-img.jpeg' %}" style="width: 50px; height: 50px;" alt="">
                     {% endif %}
                 </td>
-                <td>{{ item.created_at }}</td>
-                <td>{{ item.updated_at }}</td>
+                <td>{{ item.created_at|date:'d-M-Y' }}</td>
+                <td>{{ item.updated_at|date:'d-M-Y' }}</td>
                 
                 <td class="p-2 text-center">
                   <a
