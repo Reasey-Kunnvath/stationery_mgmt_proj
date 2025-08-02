@@ -95,12 +95,13 @@
                             Settings
                         </a>
                         <hr class="my-1">
-                        <button onclick="logout()" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                        <a href="{% url 'user_logout' %}" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                             </svg>
                             Logout
-                        </button>
+                        </a>
+                        
                     </div>
                 </div>
             </div>
@@ -222,7 +223,12 @@
                 <div id="cartTotal" class="hidden border-t pt-4 mt-4">
                     <div class="flex justify-between items-center text-lg font-semibold">
                         <span>Total: $<span id="totalAmount">0.00</span></span>
-                        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors">
+                        <form id="orderForm" action="{% url 'submit_order' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="cart" id="cartInput">
+                        </form>
+                        
+                        <button type="button" onclick="submitOrder()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg transition-colors">
                             Checkout
                         </button>
                     </div>
@@ -250,6 +256,18 @@
     <script>
         let cart = [];
         let currentView = 'items';
+        function submitOrder() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty', 'error');
+                return;
+            }
+    
+            const form = document.getElementById('orderForm');
+            const cartInput = document.getElementById('cartInput');
+            cartInput.value = JSON.stringify(cart);
+            form.submit();
+        }
+    
         
         function showItems() {
             document.getElementById('item-content').style.display = 'block';
@@ -273,19 +291,26 @@
     
         document.addEventListener('DOMContentLoaded', function() {
             const activeTab = localStorage.getItem('activeTab');
-
             if (activeTab === 'cart') {
                 showCart();
             } else {
                 showItems();
             }
+    
             loadCartFromStorage();
             setupEventListeners();
             updateCartBadge();
+    
+            if (window.location.href.includes('ordered=1')) {
+                cart = [];
+                saveCartToStorage();
+                updateCartBadge();
+                renderCart();
+                showNotification('Order submitted successfully!', 'success');
+            }
         });
     
         function setupEventListeners() {
-            // Profile dropdown
             document.getElementById('profileDropdown').addEventListener('click', function(e) {
                 e.stopPropagation();
                 const menu = document.getElementById('profileMenu');
@@ -296,7 +321,6 @@
                 document.getElementById('profileMenu').classList.add('hidden');
             });
     
-            // Sidebar toggle
             document.getElementById('sidebarToggle').addEventListener('click', function() {
                 document.getElementById('sidebar').classList.remove('-translate-x-full');
                 document.getElementById('overlay').classList.remove('hidden');
