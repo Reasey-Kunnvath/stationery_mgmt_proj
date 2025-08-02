@@ -55,9 +55,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
+LOGIN_URL = 'admin/login/'
+# settings.LOGIN_URL
 ROOT_URLCONF = 'stationery.urls'
 
 TEMPLATES = [

@@ -2,9 +2,7 @@
 from django.urls import path
 from . import views
 
-from dashboard.viewss import item_views,user_views,supplier_views,category_views
-
-from dashboard.viewss import item_views, user_views
+from dashboard.viewss import item_views,user_views,supplier_views,category_views, stock_in_views, stock_out_views
 
 
 urlpatterns = [
@@ -44,6 +42,10 @@ urlpatterns = [
     
     # Logout Routes
     path('logout', user_views.logout, name='logout'),
+
+    # Supply Management Routes
+    path('supply_in', stock_in_views.supply_in, name='supply_in'),
+    path('supply_out', stock_out_views.supply_out, name='supply_out'),
 
 
 ]
