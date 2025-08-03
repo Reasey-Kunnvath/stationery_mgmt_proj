@@ -44,8 +44,18 @@ urlpatterns = [
     path('logout', user_views.logout, name='logout'),
 
     # Supply Management Routes
+    # Supply In Routes
     path('supply_in', stock_in_views.supply_in, name='supply_in'),
+    path('supply_in/create/', stock_in_views.supply_in_create, name='supply_in_create'),
+    path('supply_in/store/', stock_in_views.supply_in_store, name='supply_in_store'),
+    path('supply_in/edit/<int:id>/', stock_in_views.supply_in_edit, name='supply_in_edit'),
+    path('supply_in/update/<int:id>/', stock_in_views.supply_in_update, name='supply_in_update'),
+    path('supply_in/delete/<int:id>/', stock_in_views.supply_in_delete, name='supply_in_delete'),
+
+
+    # Supply Out Routes
     path('supply_out', stock_out_views.supply_out, name='supply_out'),
+    
 
 
 ]

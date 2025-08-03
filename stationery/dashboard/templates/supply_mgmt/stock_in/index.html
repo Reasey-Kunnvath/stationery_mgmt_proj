@@ -1,51 +1,48 @@
 {% extends "base.html" %}
 
-{% block title %}Item{% endblock %}
+{% block title %}Stock IN{% endblock %}
 
-{% block header %}Item Page{% endblock %}
+{% block header %}Stock IN{% endblock %}
 {% load static %}
 {% block content %}
 <div class="col-md-12 offset-md-0">
   <div class="card">
     <div class="card-header">
       <h3 class="card-title mt-2">Item Table</h3>
-      <a href="{% url 'item_create' %}" class="btn btn-primary float-right">Create</a>
+      <a href="{% url 'supply_in_create' %}" class="btn btn-primary float-right">Create</a>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
       <table class="table table-bordered">
         <thead>
           <tr>
+            <th>Date</th>
             <th style="width: 120px">Item ID</th>
             <th>Item Name</th>
-            <th>Item Description</th>
             <th>Category</th>
-            <th>Image</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total Price</th>
+            <th>Supplier</th>
+            <th>Created by</th>
             <th class="w-auto text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-          {% for item in items %}
+          {% for stockin in stockins %}
           <tr>
-            <td>{{ item.item_id }}</td>
-            <td>{{ item.item_name }}</td>
-            <td>{{ item.item_desc }}</td>
-            <td>{{ item.cate_id.cate_name }}</td>
-            <td>
-              {% if item.item_img %}
-              <img src="/media/{{item.item_img }}" style="width: 50px; height: 50px;" alt="">
-              {% else %}
-              <img src="{% static 'dist/img/no-img.jpeg' %}" style="width: 50px; height: 50px;" alt="">
-              {% endif %}
-            </td>
-            <td>{{ item.created_at|date:'d-M-Y' }}</td>
-            <td>{{ item.updated_at|date:'d-M-Y' }}</td>
-
+            <td>{{ stockin.created_at|date:'d-M-Y' }}</td>
+            <td>{{"IID"}}{{ stockin.item_id.item_id }}</td>
+            <td>{{ stockin.item_id.item_name }}</td>
+            <td>{{ stockin.item_id.cate_id.cate_name }}</td>
+            <td>{{ stockin.quantity }}</td>
+            <td>${{ stockin.price }}</td>
+            <td>${{ stockin.total_price }}</td>
+            <td>{{ stockin.supplier_id.splr_name }}</td>
+            <td>{{ stockin.created_by.username }}</td>
             <td class="p-2 text-center">
-              <a href="{% url 'item_edit' item.item_id %}" class="btn btn-warning ">Edit</a>
-              <a onclick="delete_item('{{ item.item_id }}')" class="btn btn-danger ">
+              <a href="{% url 'supply_in_edit' stockin.stock_in_id %}" class="btn btn-warning ">Edit</a>
+              <a onclick="delete_item('{{ stockin.stock_in_id }}')" class="btn btn-danger ">
                 Delete
               </a>
             </td>
@@ -78,7 +75,7 @@
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "item/delete/" + id + "/";
+        window.location.href = "supply_in/delete/" + id + "/";
       }
     });
   }

@@ -1,5 +1,5 @@
 from django.db import models
-
+from login.models import *
 # Create your models here.
 class Category(models.Model):
     cate_id = models.AutoField(primary_key=True)
@@ -24,6 +24,17 @@ class Supplier(models.Model):
     splr_email = models.EmailField()
     splr_phone = models.CharField(max_length=20)
     splr_address = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
+    
+class StockIn(models.Model):
+    stock_in_id = models.AutoField(primary_key=True)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    supplier_id = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Users, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
 
