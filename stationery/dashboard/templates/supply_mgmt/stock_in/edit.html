@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Stock IN{% endblock %}
+
+{% block header %}Edit Stock IN{% endblock %}
+
+{% block content %}
+
+<div class="col-md-9 offset-md-1">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Stock IN Edit Form</h3>
+
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="{% url 'supply_in_update' stockins.stock_in_id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Item Name</label>
+                        <select name="item_id" class="form-control select2bs4" style="width: 100%;">
+                          <option >Choose Item</option>
+                            {% for item in items %}
+                            <option value="{{ item.item_id }}"{%if item.item_id == stockins.item_id_id %} selected {% endif %}>{{ item.item_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Quantity">Quantity</label>
+                        <input type="number" name="item_qty" value="{{ stockins.quantity }}" class="form-control" id="Quantity"
+                            placeholder="Item Quantity" required />
+                    </div>
+                     <div class="form-group col-md-4">
+                        <label for="price">Item Price</label>
+                        <input type="number" name="item_price" value="{{ stockins.price }}" class="form-control" id="price"
+                            placeholder="Item Price" required />
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="form-group col-md-4">
+                        <label for="total">Total Price</label>
+                        <input type="number" name="item_total" value="{{ stockins.total_price }}" class="form-control" id="total" 
+                            disabled placeholder="Total Price" required />
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="supplier">Supplier</label>
+                        <select name="supplier_id" class="form-control select2bs4">
+                            <option value="">Select Supplier</option>
+                            {% for supplier in suppliers %}
+                            <option value="{{ supplier.splr_id }}"{% if supplier.splr_id == stockins.supplier_id_id %} selected {% endif %}>{{ supplier.splr_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="users">Created By</label>
+                        <select name="user_id" class="form-control select2bs4">
+                            <option value="">Select User</option>
+                            {% for user in users %}
+                            <option value="{{ user.user_id }}" {% if user.user_id == stockins.created_by_id %} selected {% endif %}>{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class=" btn btn-warning float-right">Update</button>
+                <a href="{% url 'supply_in' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.select2').select2();
+
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+        $('#price, #Quantity').on('input', function () {
+            var qty = Number($('#Quantity').val());
+            var price = Number($('#price').val());
+            $('#total').val(qty * price);
+        });
+    });
+</script>
+{% endblock %}
