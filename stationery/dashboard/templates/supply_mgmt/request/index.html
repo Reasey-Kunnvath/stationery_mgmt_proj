@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Requisition{% endblock %}
+
+{% block header %}Staff Requisition{% endblock %}
+{% load static %}
+{% block content %}
+<div class="col-md-12 offset-md-0">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title mt-2">Requisition List</h3>
+            <a href="{% url 'supply_out' %}" class="btn btn-primary float-right">Stock Out List</a>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width: 120px">Request ID</th>
+                        <th>Requested By</th>
+                        <th>Requested Date</th>
+                        <th>Progress</th>
+
+                        <th class="w-auto text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.order_id }}</td>
+                        <td>{{ order.user.username }}</td>
+                        <td>{{ order.created_at|date:'d-M-Y' }}</td>    
+                        <td>{{ order.status }}</td>
+                        <td class="p-2 text-center">
+                            <a href="{% url 'request_detail' order.order_id %}" class="btn btn-primary ">Details</a>
+                            <!-- <a href="#" class="btn btn-warning ">Edit</a> -->
+                            {% if order.status != 'completed' %}
+                            <a onclick="delete_item('{{ order.order_id }}')" class="btn btn-danger ">
+                                Delete
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+            <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+  function delete_item(id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Delete this Item",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "request/delete/" + id + "/";
+      }
+    });
+  }
+</script>
+{% endblock %}

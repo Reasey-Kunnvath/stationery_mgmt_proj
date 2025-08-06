@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Stock Out{% endblock %}
+
+{% block header %}Stock Out{% endblock %}
+{% load static %}
+{% block content %}
+<div class="col-md-12 offset-md-0">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title mt-2">Stock Out Table</h3>
+      <a href="{% url 'request' %}" class="btn btn-primary float-right">Check requests Pending</a>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Requested ID</th>
+            <th>Requested By</th>
+            <th>Item Name</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            
+            <th class="w-auto text-center">Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for stockout in stockout %}
+          <tr>
+            <td>{{ stockout.created_at|date:'d-M-Y' }}</td>
+            <td>{{"Order_"}}{{ stockout.order_id_id }}</td>
+            <td>{{ stockout.created_by.username }}</td>
+            <td>{{ stockout.item_id.item_name }}</td>
+            <td>{{ stockout.item_id.cate_id.cate_name }}</td>
+            <td>{{ stockout.quantity }}</td>
+            
+            <td class="p-2 text-center">
+              Completed
+              <!-- <a href="{% url 'supply_in_edit' stockout.stock_out_id %}" class="btn btn-warning ">Edit</a>
+              <a onclick="delete_item('{{ stockout.stock_out_id }}')" class="btn btn-danger ">
+                Delete
+              </a> -->
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer clearfix">
+      <ul class="pagination pagination-sm m-0 float-right">
+        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

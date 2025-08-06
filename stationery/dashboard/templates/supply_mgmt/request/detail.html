@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Requisition Details{% endblock %}
+
+{% block header %}Staff Requisition Details{% endblock %}
+{% load static %}
+{% block content %}
+<div class="invoice p-3 mb-3 offset-sm-0 col-sm-6 ">
+    <!-- title row -->
+    <div class="row">
+      
+        <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+        <div class="col-sm-4 invoice-col">
+            <address>
+                <strong>Requested By:</strong> {{ orderDetail.user.username }}<br>
+                <strong>Request ID:</strong> {{ orderDetail.order_id }}<br>
+                <strong>Requested Date:</strong> {{ orderDetail.created_at|date:'d-M-Y' }}<br>
+                <strong>Progress:</strong> {{ orderDetail.status }}<br>
+            </address>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Table row -->
+    <div class="row">
+        <div class="col-12 table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orders in orders %}
+                    <tr> 
+                        <td>RID{{ orders.order_id }}</td>
+                        <td>{{ orders.item.item_name }}</td>
+                        <td>{{ orders.quantity }}</td>
+                    </tr>
+                    {% endfor %}
+           
+                </tbody>
+            </table>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- this row will not appear when printing -->
+    <div class="row no-print">
+        <div class="col-12">
+            <a href="{% url 'request' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+            {% if orderDetail.status != 'completed' %}
+            <a href="{% url 'supply_out_create' orderDetail.order_id %} " class="btn btn-success float-right"><i class="fas fa-sign-out-alt"></i> Make Stock Out
+            {% endif %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,7 +2,7 @@
 from django.urls import path
 from . import views
 
-from dashboard.viewss import item_views,user_views,supplier_views,category_views, stock_in_views, stock_out_views
+from dashboard.viewss import item_views,user_views,supplier_views,category_views, stock_in_views, stock_out_views, request_views
 
 
 urlpatterns = [
@@ -55,6 +55,19 @@ urlpatterns = [
 
     # Supply Out Routes
     path('supply_out', stock_out_views.supply_out, name='supply_out'),
+    path('supply_out/create/<int:id>', stock_out_views.supply_out_create, name='supply_out_create'),
+    path('supply_out/store/', stock_out_views.supply_out_store, name='supply_out_store'),
+    # path('supply_out/edit/<int:id>/', stock_out_views.supply_out_edit, name='supply_out_edit'),
+    # path('supply_out/update/<int:id>/', stock_out_views.supply_out_update, name='supply_out_update'),
+    # path('supply_out/delete/<int:id>/', stock_out_views.supply_out_delete, name='supply_out_delete'),
+
+    path('request', request_views.request, name='request'),
+    path('request/detail/<int:id>/', request_views.request_detail, name='request_detail'),
+    # path('request/create/', request_views.request_create, name='request_create'),
+    # path('request/store/', request_views.request_store, name='request_store'),
+    # path('request/edit/<int:id>/', request_views.request_edit, name='request_edit'),
+    # path('request/update/<int:id>/', request_views.request_update, name='request_update'),
+    path('request/delete/<int:id>/', request_views.request_delete, name='request_delete'),
     
 
 

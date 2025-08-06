@@ -45,9 +45,16 @@ def default_sidebar(request):
                     {
                         'url_name': 'supply_out',
                         'icon': 'fas fa-circle',
-                        'label': 'Stock OUt'
+                        'label': 'Stock Out'
+                    },
+                    {
+                        'url_name': 'request',
+                        'icon': 'fas fa-circle',
+                        'label': 'Requisitions'
                     }
                 ]
             }
+           
+            
         ]
     }
