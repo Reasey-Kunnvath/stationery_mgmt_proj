@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Stock Out{% endblock %}
+
+{% block header %}Stock Out{% endblock %}
+{% load static %}
+{% block content %}
+<div class="col-md-6">
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Create Stock Out</h3>
+
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="{% url 'supply_out_store' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card-body">
+                <div class="row invoice-info">
+                    <div class="col-sm-4 invoice-col">
+                        <address>
+                            <strong>Requested By:</strong> {{ orderDetail.user.username }}<br>
+                            <strong>Request ID:</strong> {{ orderDetail.order_id }}<br>
+                            <strong>Requested Date:</strong> {{ orderDetail.created_at|date:'d-M-Y' }}<br>
+                        </address>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 row">
+                    <label class="col-form-label col-md-3" for="Request ID">Request ID</label>
+                    <label class="col-form-label col-md-3" for="Item ID">Item ID</label>
+                    <label class="col-form-label col-md-3" for="item_name">Item Name</label>
+                    <label class="col-form-label col-md-3 " for="item_qty">Quantity</label>
+                </div>
+                <div class="row">
+                    {# Loop through the items in the orderDetail and create form fields for each item #}
+                    {% for order in orders %}
+                      <div class="form-group col-md-3 ">
+                        <input name="order_id" value="{{ order.order_id }}"
+                            class="form-control form-control-border" id="item_name" placeholder="Item Name" required />
+                    </div>
+                     <div class="form-group col-md-3 ">
+                        <input  name="item_id" value="{{ order.item.item_id }}"
+                            class="form-control form-control-border" id="item_name" placeholder="Item Name" required />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input name="" value="{{ order.item.item_name }}"
+                            class="form-control form-control-border" id="item_name" placeholder="Item Name" required />
+                    </div>
+                    <div class="form-group col-md-3 ">
+                        <input name="item_qty" value="{{ order.quantity }}"
+                            class="form-control form-control-border" id="item_qty" placeholder="Item Quantity"
+                            required />
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class=" btn btn-primary float-right">Submit</button>
+                <a href="{% url 'supply_out' %}" class="btn btn-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.select2').select2();
+
+        $('.select2bs4').select2({
+            theme: 'bootstrap4'
+        });
+        $('#price, #Quantity').on('input', function () {
+            var qty = Number($('#Quantity').val());
+            var price = Number($('#price').val());
+            $('#total').val(qty * price);
+        });
+    });
+</script>
+
+{% endblock %}

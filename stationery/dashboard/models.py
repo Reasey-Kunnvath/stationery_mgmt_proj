@@ -1,5 +1,6 @@
 from django.db import models
 from login.models import *
+
 # Create your models here.
 class Category(models.Model):
     cate_id = models.AutoField(primary_key=True)
@@ -38,3 +39,13 @@ class StockIn(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
 
+
+
+class StockOut(models.Model):
+    stock_out_id = models.AutoField(primary_key=True)
+    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    order_id = models.ForeignKey('user.OrderItem', on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Users, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(null=True, blank=True)
