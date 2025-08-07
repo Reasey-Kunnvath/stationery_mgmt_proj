@@ -5,15 +5,19 @@ from django.utils import timezone
 import sweetify # type: ignore
 
 def user(request):
-    users = Users.objects.raw('SELECT a.user_id, ' \
-                                     'a.username, ' \
-                                     'a.email, ' \
-                                     'CASE WHEN a.is_superuser = 1 THEN' \
-                                     '"Admin"' \
-                                     'ELSE b.role_desc END AS role_desc, ' \
-                                     'a.created_at, ' \
-                                     'a.updated_at ' \
-                                'FROM login_users a LEFT JOIN login_roles b ON a.role_id = b.role_id ORDER BY a.user_id ASC')
+    users = Users.objects.raw("""
+             SELECT a.user_id, 
+                    a.username,
+                    a.email, 
+                    CASE WHEN a.is_superuser THEN
+                        'Admin'
+                    ELSE 
+                        b.role_desc 
+                    END AS role_desc, 
+                    a.created_at, 
+                    a.updated_at 
+                FROM login_users a LEFT JOIN login_roles b ON a.role_id::int = b.role_id::int ORDER BY a.user_id ASC
+        """)
     context = {
         'users': users,
     }

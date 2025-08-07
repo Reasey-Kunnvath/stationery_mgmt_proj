@@ -20,11 +20,10 @@ def auth_adm_login(request):
         is_valid, message = auth_adm(username, password)
 
         if is_valid:
-            # Authenticate the user with Django's authentication system
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)  # Log the user in
-                return redirect('dashboard_home')  # Use a named URL
+                login(request, user) 
+                return redirect('dashboard_home')
             else:
                 messages.error(request, 'Authentication failed internally.')
                 return redirect('login_page')
